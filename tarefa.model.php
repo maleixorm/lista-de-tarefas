@@ -1,6 +1,6 @@
 <?php
 
-class Tarefa {
+class Task {
     private $id;
     private $id_status;
     private $tarefa;
