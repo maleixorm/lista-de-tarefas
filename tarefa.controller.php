@@ -11,3 +11,5 @@ $conexao = new Conexao();
 
 $tarefaService = new TaskService($conexao, $tarefa);
 $tarefaService->insert();
+
+header('Location: /lista-de-tarefas/public/nova_tarefa.php?inclusao=1');
