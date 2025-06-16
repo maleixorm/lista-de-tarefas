@@ -1,15 +1,25 @@
 <?php
 
-require "./conn.php";
-require "./tarefa.model.php";
-require "./tarefa.service.php";
+require "conn.php";
+require "tarefa.model.php";
+require "tarefa.service.php";
 
-$tarefa = new Task();
-$tarefa->__set('tarefa', $_POST['task']);
+$acao = isset($_GET['acao']) ? $_GET['acao'] : $acao;
 
-$conexao = new Conexao();
+if ($acao == 'inserir') {
+    $tarefa = new Task();
+    $tarefa->__set('tarefa', $_POST['task']);
 
-$tarefaService = new TaskService($conexao, $tarefa);
-$tarefaService->insert();
+    $conexao = new Conexao();
 
-header('Location: /lista-de-tarefas/public/nova_tarefa.php?inclusao=1');
+    $tarefaService = new TaskService($conexao, $tarefa);
+    $tarefaService->insert();
+
+    header('Location: /lista-de-tarefas/public/nova_tarefa.php?inclusao=1');
+} else if ($acao == 'recuperar') {
+    $tarefa = new Task();
+    $conexao = new Conexao();
+
+    $tarefaService = new TaskService($conexao, $tarefa);
+    $tarefas = $tarefaService->select();
+}
