@@ -6,11 +6,6 @@ class Task {
     private $tarefa;
     private $data_cadastro;
 
-    public function __construct($id, $id_status, $tarefa, $data_cadastro)
-    {
-        
-    }
-
     public function __get($attribute) {
         return $this->$attribute;
     }
