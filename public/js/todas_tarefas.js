@@ -1,6 +1,6 @@
 function editar(id, txt_tarefa) {
     let form = document.createElement('form');
-    form.action = '#';
+    form.action = '/lista-de-tarefas/tarefa.controller.php?acao=atualizar';
     form.method = 'post';
     form.className = 'row';
 
@@ -12,7 +12,7 @@ function editar(id, txt_tarefa) {
 
     let inputId = document.createElement('input');
     inputId.type = 'hidden';
-    inputId.className = 'id';
+    inputId.name = 'id';
     inputId.value = id;
 
     let button = document.createElement('button');
