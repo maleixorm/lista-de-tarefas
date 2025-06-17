@@ -16,13 +16,13 @@ if ($acao == 'inserir') {
     $tarefaService->insert();
 
     header('Location: /lista-de-tarefas/public/nova_tarefa.php?inclusao=1');
-} else if ($acao == 'recuperar') {
+} elseif ($acao == 'recuperar') {
     $tarefa = new Task();
     $conexao = new Conexao();
 
     $tarefaService = new TaskService($conexao, $tarefa);
     $tarefas = $tarefaService->select();
-} else if ($acao == 'atualizar') {
+} elseif ($acao == 'atualizar') {
     $tarefa = new Task();
     $tarefa->__set('id', $_POST['id']);
     $tarefa->__set('tarefa', $_POST['tarefa']);
@@ -32,9 +32,13 @@ if ($acao == 'inserir') {
     $tarefaService = new TaskService($conexao, $tarefa);
     $atualizar = $tarefaService->update();
     if ($atualizar) {
-        header('location: /lista-de-tarefas/public/todas_tarefas.php?edicao=1');
+        if (isset($_GET['pag']) && $_GET['pag'] == 'index') {
+            header('location: /lista-de-tarefas/public/index.php');
+        } else {
+            header('location: /lista-de-tarefas/public/todas_tarefas.php?edicao=1');
+        } 
     }
-} else if ($acao == 'remover') {
+} elseif ($acao == 'remover') {
     $tarefa = new Task();
     $tarefa->__set('id', $_GET['id']);
 
@@ -43,8 +47,12 @@ if ($acao == 'inserir') {
     $tarefaService = new TaskService($conexao, $tarefa);
     $tarefaService->remove();
 
-    header('location: /lista-de-tarefas/public/todas_tarefas.php?remocao=1');
-} else if ($acao == 'marcarRealizada') {
+    if (isset($_GET['pag']) && $_GET['pag'] == 'index') {
+        header('location: /lista-de-tarefas/public/index.php');
+    } else {
+        header('location: /lista-de-tarefas/public/todas_tarefas.php?remocao=1');
+    }
+} elseif ($acao == 'marcarRealizada') {
     $tarefa = new Task();
     $tarefa->__set('id', $_GET['id']);
     $tarefa->__set('id_status', 2);
@@ -54,5 +62,16 @@ if ($acao == 'inserir') {
     $tarefaService = new TaskService($conexao, $tarefa);
     $tarefaService->marcarRealizada();
 
-    header('location: /lista-de-tarefas/public/todas_tarefas.php');
+    if (isset($_GET['pag']) && $_GET['pag'] == 'index') {
+        header('location: /lista-de-tarefas/public/index.php');
+    } else {
+        header('location: /lista-de-tarefas/public/todas_tarefas.php');
+    }
+} elseif ($acao == 'recuperarTarefasPendentes') {
+    $tarefa = new Task();
+    $tarefa->__set('id_status', 1);
+    $conexao = new Conexao();
+
+    $tarefaService = new TaskService($conexao, $tarefa);
+    $tarefas = $tarefaService->selectPendingTask();
 }
