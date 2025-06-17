@@ -49,7 +49,7 @@
 								<form method="POST" action="../tarefa.controller.php?acao=inserir">
 									<div class="form-group">
 										<label>Descrição da tarefa:</label>
-										<input type="text" class="form-control" name="task" placeholder="Digite aqui a tarefa...">
+										<input type="text" class="form-control" name="tarefa" placeholder="Digite aqui a tarefa...">
 									</div>
 
 									<button class="btn btn-success">Cadastrar</button>
