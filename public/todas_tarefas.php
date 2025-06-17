@@ -26,6 +26,12 @@
 			</div>
 		</nav>
 
+		<? if (isset($_GET['edicao']) &&  $_GET['edicao'] == 1) { ?>
+			<div class="bg-success pt-2 text-white d-flex justify-content-center">
+				<h5>Tarefa atualizada com sucesso!</h5>
+			</div>
+		<? } ?>
+
 		<div class="container app">
 			<div class="row">
 				<div class="col-sm-3 menu">
