@@ -44,4 +44,15 @@ if ($acao == 'inserir') {
     $tarefaService->remove();
 
     header('location: /lista-de-tarefas/public/todas_tarefas.php?remocao=1');
+} else if ($acao == 'marcarRealizada') {
+    $tarefa = new Task();
+    $tarefa->__set('id', $_GET['id']);
+    $tarefa->__set('id_status', 2);
+
+    $conexao = new Conexao();
+
+    $tarefaService = new TaskService($conexao, $tarefa);
+    $tarefaService->marcarRealizada();
+
+    header('location: /lista-de-tarefas/public/todas_tarefas.php');
 }
