@@ -48,4 +48,12 @@ class TaskService {
         $stmt->bindValue(2, $this->tarefa->__get('id'));
         return $stmt->execute();
     }
+
+    public function selectPendingTask() {
+        $query = "SELECT t.id, s.status, t.tarefa FROM tb_tarefas AS t LEFT JOIN tb_status AS s ON (t.id_status = s.id) WHERE t.id_status = ?";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindValue(1, $this->tarefa->__get('id_status'));
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }
