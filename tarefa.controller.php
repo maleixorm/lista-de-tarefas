@@ -34,4 +34,14 @@ if ($acao == 'inserir') {
     if ($atualizar) {
         header('location: /lista-de-tarefas/public/todas_tarefas.php?edicao=1');
     }
+} else if ($acao == 'remover') {
+    $tarefa = new Task();
+    $tarefa->__set('id', $_GET['id']);
+
+    $conexao = new Conexao();
+
+    $tarefaService = new TaskService($conexao, $tarefa);
+    $tarefaService->remove();
+
+    header('location: /lista-de-tarefas/public/todas_tarefas.php?remocao=1');
 }
